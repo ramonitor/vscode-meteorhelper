@@ -1,0 +1,78 @@
+{
+    "name": "meteorhelper",
+    "displayName": "MeteorHelper",
+    "description": "VSCode Helper for the MeteorJS Framework",
+    "version": "0.0.3",
+    "publisher": "ramonitor",
+    "engines": {
+        "vscode": "^0.10.1"
+    },
+    "icon": "images/meteoricon.png",
+    "categories": [
+        "Other"
+    ],
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/ramonitor/vscode-meteorhelper.git"
+    },
+    "activationEvents": [
+        "workspaceContains:.meteor/packages"
+    ],
+    "main": "./out/src/extension",
+    "contributes": {
+        "commands": [
+            {
+                "command": "extension.meteorReset",
+                "title": "MeteorHelper: Reset Meteor"
+            },
+            {
+                "command": "extension.meteorRun",
+                "title": "MeteorHelper: Run Meteor"
+            },
+            {
+                "command": "extension.meteorStop",
+                "title": "MeteorHelper: Stop Meteor"
+            },
+            {
+                "command": "extension.meteorDebug",
+                "title": "MeteorHelper: Debug Meteor"
+            }
+        ],
+        "configuration": {
+            "type": "object",
+            "title": "MeteorHelper configuration",
+            "properties": {
+                "meteorhelper.meteorPath": {
+                    "type": "string",
+                    "description": "path to the Meteor executable (e.g. /usr/local/bin/meteor on the Mac or %USERPROFILE%\\AppData\\Local\\.meteor\\meteor.bat on Windows"
+                },
+                "meteorhelper.meteorPort": {
+                    "type": "string",
+                    "default": "3000",
+                    "description": "Specifies the port Meteor will be using."
+                },
+                "meteorhelper.meteorSettings": {
+                    "type": "string",
+                    "description": "Relative path to the Meteor settings JSON file, e.g. app/settings/settings.debug.json"
+                },
+                "meteorhelper.relativeProjectPath": {
+                    "type": "string",
+                    "description": "Relative path to your Meteor application, e.g. app"
+                }
+            }
+        }
+    },
+    "scripts": {
+        "vscode:prepublish": "node ./node_modules/vscode/bin/compile",
+        "compile": "node ./node_modules/vscode/bin/compile -watch -p ./"
+    },
+    "devDependencies": {
+        "typescript": "^1.6.2",
+        "vscode": "0.10.x"
+    },
+    "dependencies": {
+        "shelljs": "*",
+        "tree-kill": "1.0.0",
+        "path": "*"
+    }
+}
