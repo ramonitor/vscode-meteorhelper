@@ -1,11 +1,12 @@
 {
     "name": "meteorhelper",
     "displayName": "MeteorHelper",
-    "description": "VSCode Helper for the MeteorJS Framework",
-    "version": "0.0.3",
+    "description": "Meteor CLI integration into VSCode",
+    "version": "0.1.0",
     "publisher": "ramonitor",
+    "license": "MIT",
     "engines": {
-        "vscode": "^0.10.1"
+        "vscode": "^0.10.11"
     },
     "icon": "images/meteoricon.png",
     "categories": [
@@ -22,20 +23,69 @@
     "contributes": {
         "commands": [
             {
-                "command": "extension.meteorReset",
-                "title": "MeteorHelper: Reset Meteor"
+                "command": "meteorhelper.meteorReset",
+                "title": "reset",
+                "category": "Meteor"
             },
             {
                 "command": "extension.meteorRun",
-                "title": "MeteorHelper: Run Meteor"
+                "title": "run",
+                "category": "Meteor"
             },
             {
                 "command": "extension.meteorStop",
-                "title": "MeteorHelper: Stop Meteor"
+                "title": "stop..",
+                "category": "MeteorHelper"
+            },
+            {
+                "command": "extension.meteorStopRun",
+                "title": "stop run/debug",
+                "category": "MeteorHelper"
+            },
+            {
+                "command": "extension.meteorStopTest",
+                "title": "stop testing",
+                "category": "MeteorHelper"
             },
             {
                 "command": "extension.meteorDebug",
-                "title": "MeteorHelper: Debug Meteor"
+                "title": "debug",
+                "category": "Meteor"
+            },
+            {
+                "command": "extension.meteorAdd",
+                "title": "add",
+                "category": "Meteor"
+            },
+            {
+                "command": "extension.meteorList",
+                "title": "list",
+                "category": "Meteor"
+            },
+            {
+                "command": "extension.meteorUpdate",
+                "title": "update",
+                "category": "Meteor"
+            },
+            {
+                "command": "extension.meteorRemove",
+                "title": "remove",
+                "category": "Meteor"
+            },
+            {
+                "command": "extension.meteorTest",
+                "title": "test",
+                "category": "Meteor"
+            },
+            {
+                "command": "extension.meteorTestFullApp",
+                "title": "test full-app",
+                "category": "Meteor"
+            },
+            {
+                "command": "extension.meteorNpm",
+                "title": "npm",
+                "category": "Meteor"
             }
         ],
         "configuration": {
@@ -58,21 +108,53 @@
                 "meteorhelper.relativeProjectPath": {
                     "type": "string",
                     "description": "Relative path to your Meteor application, e.g. app"
+                },
+                "meteorhelper.testConfiguration": {
+                    "type": "object",
+                    "title": "Meteor TestConfiguration",
+                    "properties": {
+                        "driverPackage": {
+                            "type": "string",
+                            "description": "driver package for testing",
+                            "default": ""
+                        },
+                        "port": {
+                            "type": "string",
+                            "description": "Port to listen on (instead of the default 3000).",
+                            "default": ""
+                        },
+                        "debugPort": {
+                            "type": "string",
+                            "description": "Specify a port to enable server-side debugging.",
+                            "default": ""
+                        },
+                        "settings": {
+                            "type": "string",
+                            "description": "Set optional data for Meteor.settings on the server",
+                            "default": ""
+                        },
+                        "verbose": {
+                            "type": "boolean",
+                            "description": "Print all output from builds log",
+                            "default": false
+                        }
+                    }
                 }
             }
+        },
+        "scripts": {
+            "vscode:prepublish": "node ./node_modules/vscode/bin/compile",
+            "compile": "node ./node_modules/vscode/bin/compile -watch -p ./",
+            "postinstall": "node ./node_modules/vscode/bin/install"
+        },
+        "devDependencies": {
+            "typescript": "^1.8.9",
+            "vscode": "^0.11.9"
+        },
+        "dependencies": {
+            "path": "*",
+            "shelljs": "*",
+            "tree-kill": "^1.0.0"
         }
-    },
-    "scripts": {
-        "vscode:prepublish": "node ./node_modules/vscode/bin/compile",
-        "compile": "node ./node_modules/vscode/bin/compile -watch -p ./"
-    },
-    "devDependencies": {
-        "typescript": "^1.6.2",
-        "vscode": "0.10.x"
-    },
-    "dependencies": {
-        "shelljs": "*",
-        "tree-kill": "1.0.0",
-        "path": "*"
     }
 }
