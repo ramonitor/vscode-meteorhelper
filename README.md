@@ -57,13 +57,19 @@ To enable testing (meteor test), Meteor 1.3 or above is required. Also, there ne
 
 ## Release Notes
 
+### 0.1.1
+
+* Fixed a bug with the meteor reset command
+* Added validation of the Meteor project directory 
+* MeteorHelper extension can be activated via the supported MeteorHelper commands
+
 ### 0.1.0
 
 * Added support for the Meteor commands add, remove, list, update, npm and test
 * Added support for Meteor testing (requires Meteor 1.3 or higher)
 * Added multiple Output Channels (meteor run, test and other commands run in separate output channels)
 * Added Meteor version detection
-* Several optimization
+* Several optimizations
 
 ### 0.0.3
 
