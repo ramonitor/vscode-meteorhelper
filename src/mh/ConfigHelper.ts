@@ -103,6 +103,10 @@ export class ConfigHelper {
         return meteorAppPath;
     }
 
+    public static isMeteorProjectFolder(projectFolder: string): boolean {
+        return shell.test('-e', path.join(projectFolder, '.meteor'));
+    }
+
     public static getExtensionVersion(): string {
         const extension = vscode.extensions.getExtension(this.EXTENSION_NAME);
 
