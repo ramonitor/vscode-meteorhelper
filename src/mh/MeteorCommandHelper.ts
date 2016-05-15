@@ -74,11 +74,17 @@ class MeteorCommand {
 
     public execute(): Thenable<string> {
         return new Promise((resolve, reject) => {
-            const cwd = ConfigHelper.getMeteorAppPath();
             const meteorPath = ConfigHelper.getMeteorPath();
             const startTime = Date.now();
             const meteorCommand = this.arguments[0];
             const command = 'meteor ' + this.arguments.join(' ');
+            const cwd = ConfigHelper.getMeteorAppPath();
+
+            // if (!ConfigHelper.isMeteorProjectFolder(cwd)) {
+            //     vscode.window.showErrorMessage(`MeteorHelper: ${cwd} is not a Meteor project directory. Check your workspace configuration.`);
+            //     return;
+            // }
+            
             let output = '';
 
             this.outputChannel.append(this, '--------------------------------------------------------------------------------------------------\n');
@@ -121,7 +127,6 @@ class MeteorCommand {
                             vscode.window.showErrorMessage(`MeteorHelper: something went wrong, error ${code}`);
                         }
                     }
-                    console.log('rejecten van : ' + output);
                     reject(output);
                 }
                 this.outputChannel.append(this, '\n--------------------------------------------------------------------------------------------------\n');
@@ -163,6 +168,8 @@ export class MeteorCommandHelper {
     private static commandExecutionList: MeteorCommand[] = [];
 
     public static init() {
+        ConfigHelper.setConfiguration();
+        
         const extensionVersion = ConfigHelper.getExtensionVersion();
         this.statusBar.init(`MH: Version ${extensionVersion} loaded`);
     }
@@ -248,13 +255,20 @@ export class MeteorCommandHelper {
 
     private static execMeteorCommand(args: string[], force = false, visible = false, type: CommandType): void {
 
+        let outputChannel: OutputChannelWrapper;
         let command: MeteorCommand;
+        
         command = this.commandExecutionList.find((runningCommand: MeteorCommand) => runningCommand.type == type);
 
-        let outputChannel: OutputChannelWrapper;
-
         if (!command) {
+            
+            const meteorAppPath = ConfigHelper.getMeteorAppPath();
 
+            if (!ConfigHelper.isMeteorProjectFolder(meteorAppPath)) {
+                vscode.window.showErrorMessage(`MeteorHelper: ${meteorAppPath} is not a Meteor project directory. Check your workspace configuration.`);
+                return;
+            }
+            
             switch (type) {
                 case CommandType.Debug:
                 case CommandType.Run:
