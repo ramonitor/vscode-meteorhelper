@@ -306,10 +306,10 @@ export class MeteorCommandHelper {
         switch (commandType) {
             case CommandType.Run:
             case CommandType.Debug:
-                this.statusBar.setMeteorRunStatusBar(RunMode.Stopped, 'Click to start meteor run', 'extension.meteorRun');
+                this.statusBar.setMeteorRunStatusBar(RunMode.Stopped, 'Click to start meteor run', 'meteorhelper.meteorRun');
                 break;
             case CommandType.Test:
-                this.statusBar.setMeteorTestStatusBar(TestMode.Stopped, 'Click to start meteor test', 'extension.meteorTest');
+                this.statusBar.setMeteorTestStatusBar(TestMode.Stopped, 'Click to start meteor test', 'meteorhelper.meteorTest');
                 break;
             case CommandType.Other:
                 this.statusBar.setMessage('MH: Done', true);
@@ -323,13 +323,13 @@ export class MeteorCommandHelper {
 
         switch (commandType) {
             case CommandType.Run:
-                statusBar.setMeteorRunStatusBar(RunMode.Running, tooltip, 'extension.meteorStopRun');
+                statusBar.setMeteorRunStatusBar(RunMode.Running, tooltip, 'meteorhelper.meteorStopRun');
                 break;
             case CommandType.Debug:
-                statusBar.setMeteorRunStatusBar(RunMode.Debugging, tooltip, 'extension.meteorStopRun');
+                statusBar.setMeteorRunStatusBar(RunMode.Debugging, tooltip, 'meteorhelper.meteorStopRun');
                 break;
             case CommandType.Test:
-                statusBar.setMeteorTestStatusBar(TestMode.Normal, tooltip, 'extension.meteorStopTest');
+                statusBar.setMeteorTestStatusBar(TestMode.Normal, tooltip, 'meteorhelper.meteorStopTest');
                 break;
             case CommandType.Other:
                 statusBar.setMessage(`MH: Meteor ${command.args[0]}`);
@@ -353,7 +353,7 @@ export class MeteorCommandHelper {
             return;
         }
 
-        const testMode = commandName === 'extension.meteorTest' ? TestMode.Normal : TestMode.Full;
+        const testMode = commandName === 'meteorhelper.meteorTest' ? TestMode.Normal : TestMode.Full;
 
         let commandArgs = [];
 

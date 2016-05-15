@@ -2,7 +2,7 @@
     "name": "meteorhelper",
     "displayName": "MeteorHelper",
     "description": "Meteor CLI integration into VSCode",
-    "version": "0.1.0",
+    "version": "0.1.1",
     "publisher": "ramonitor",
     "license": "MIT",
     "engines": {
@@ -17,7 +17,20 @@
         "url": "https://github.com/ramonitor/vscode-meteorhelper.git"
     },
     "activationEvents": [
-        "workspaceContains:.meteor/packages"
+        "workspaceContains:.meteor/packages",
+        "onCommand:meteorhelper.meteorReset",
+        "onCommand:meteorhelper.meteorRun",
+        "onCommand:meteorhelper.meteorStop",
+        "onCommand:meteorhelper.meteorStopRun",
+        "onCommand:meteorhelper.meteorStopTest",
+        "onCommand:meteorhelper.meteorDebug",
+        "onCommand:meteorhelper.meteorAdd",
+        "onCommand:meteorhelper.meteorList",
+        "onCommand:meteorhelper.meteorUpdate",
+        "onCommand:meteorhelper.meteorRemove",
+        "onCommand:meteorhelper.meteorTest",
+        "onCommand:meteorhelper.meteorTestFullApp",
+        "onCommand:meteorhelper.meteorNpm"         
     ],
     "main": "./out/src/extension",
     "contributes": {
@@ -28,62 +41,62 @@
                 "category": "Meteor"
             },
             {
-                "command": "extension.meteorRun",
+                "command": "meteorhelper.meteorRun",
                 "title": "run",
                 "category": "Meteor"
             },
             {
-                "command": "extension.meteorStop",
+                "command": "meteorhelper.meteorStop",
                 "title": "stop..",
                 "category": "MeteorHelper"
             },
             {
-                "command": "extension.meteorStopRun",
+                "command": "meteorhelper.meteorStopRun",
                 "title": "stop run/debug",
                 "category": "MeteorHelper"
             },
             {
-                "command": "extension.meteorStopTest",
+                "command": "meteorhelper.meteorStopTest",
                 "title": "stop testing",
                 "category": "MeteorHelper"
             },
             {
-                "command": "extension.meteorDebug",
+                "command": "meteorhelper.meteorDebug",
                 "title": "debug",
                 "category": "Meteor"
             },
             {
-                "command": "extension.meteorAdd",
+                "command": "meteorhelper.meteorAdd",
                 "title": "add",
                 "category": "Meteor"
             },
             {
-                "command": "extension.meteorList",
+                "command": "meteorhelper.meteorList",
                 "title": "list",
                 "category": "Meteor"
             },
             {
-                "command": "extension.meteorUpdate",
+                "command": "meteorhelper.meteorUpdate",
                 "title": "update",
                 "category": "Meteor"
             },
             {
-                "command": "extension.meteorRemove",
+                "command": "meteorhelper.meteorRemove",
                 "title": "remove",
                 "category": "Meteor"
             },
             {
-                "command": "extension.meteorTest",
+                "command": "meteorhelper.meteorTest",
                 "title": "test",
                 "category": "Meteor"
             },
             {
-                "command": "extension.meteorTestFullApp",
+                "command": "meteorhelper.meteorTestFullApp",
                 "title": "test full-app",
                 "category": "Meteor"
             },
             {
-                "command": "extension.meteorNpm",
+                "command": "meteorhelper.meteorNpm",
                 "title": "npm",
                 "category": "Meteor"
             }

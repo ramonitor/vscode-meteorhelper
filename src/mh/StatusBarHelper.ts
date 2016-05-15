@@ -33,8 +33,8 @@ export class StatusBarHelper implements vscode.Disposable {
     public init(initialMessage): void {
         this.setMessage(initialMessage, true);
         
-        this.setMeteorRunStatusBar(RunMode.Stopped, 'Click to start meteor run', 'extension.meteorRun');
-        this.setMeteorTestStatusBar(TestMode.Stopped, 'Click to start meteor test', 'extension.meteorTest');
+        this.setMeteorRunStatusBar(RunMode.Stopped, 'Click to start meteor run', 'meteorhelper.meteorRun');
+        this.setMeteorTestStatusBar(TestMode.Stopped, 'Click to start meteor test', 'meteorhelper.meteorTest');
 
         this.meteorRunDebugStatusBar.show();
         this.meteorTestStatusBar.show();

@@ -20,32 +20,32 @@ export class ConfigHelper {
     private static commandConfig = {
         commands: [
             {
-                'command': 'extension.meteorRun',
+                'command': 'meteorhelper.meteorRun',
                 'prompt': 'meteor run',
                 'placeHolder': '[target..] [options]'
             },
             {
-                'command': 'extension.meteorAdd',
+                'command': 'meteorhelper.meteorAdd',
                 'prompt': 'meteor add',
                 'placeHolder': '<package> [package..]'
             },
             {
-                'command': 'extension.meteorList',
+                'command': 'meteorhelper.meteorList',
                 'prompt': 'meteor list',
                 'placeHolder': '<package> [package..]'
             },
             {
-                'command': 'extension.meteorUpdate',
+                'command': 'meteorhelper.meteorUpdate',
                 'prompt': 'meteor update',
                 'placeHolder': 'specify list of packagenames or press enter for an update of the meteor release'
             },
             {
-                'command': 'extension.meteorRemove',
+                'command': 'meteorhelper.meteorRemove',
                 'prompt': 'meteor remove',
                 'placeHolder': '[packageName packageName2 ...]'
             },
-                        {
-                'command': 'extension.meteorNpm',
+            {
+                'command': 'meteorhelper.meteorNpm',
                 'prompt': 'meteor npm',
                 'placeHolder': '<command>'
             }

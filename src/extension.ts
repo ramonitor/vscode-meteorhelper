@@ -13,23 +13,23 @@ export function activate(context: vscode.ExtensionContext) {
         ConfigHelper.setConfiguration();
     }));
 
-    context.subscriptions.push(MeteorCommandHelper.registerRunCommand('extension.meteorRun', 'run'));
-    context.subscriptions.push(MeteorCommandHelper.registerRunCommand('extension.meteorDebug', 'debug'));
+    context.subscriptions.push(MeteorCommandHelper.registerRunCommand('meteorhelper.meteorRun', 'run'));
+    context.subscriptions.push(MeteorCommandHelper.registerRunCommand('meteorhelper.meteorDebug', 'debug'));
 
-    context.subscriptions.push(MeteorCommandHelper.registerTestCommand('extension.meteorTest', 'test'));
-    context.subscriptions.push(MeteorCommandHelper.registerTestCommand('extension.meteorTestFullApp', 'test', 'full-app'));
+    context.subscriptions.push(MeteorCommandHelper.registerTestCommand('meteorhelper.meteorTest', 'test'));
+    context.subscriptions.push(MeteorCommandHelper.registerTestCommand('meteorhelper.meteorTestFullApp', 'test', 'full-app'));
 
-    context.subscriptions.push(MeteorCommandHelper.stopCommand('extension.meteorStop'));
-    context.subscriptions.push(MeteorCommandHelper.stopRunTestCommand('extension.meteorStopRun', 'run'));
-    context.subscriptions.push(MeteorCommandHelper.stopRunTestCommand('extension.meteorStopTest', 'test'));
+    context.subscriptions.push(MeteorCommandHelper.stopCommand('meteorhelper.meteorStop'));
+    context.subscriptions.push(MeteorCommandHelper.stopRunTestCommand('meteorhelper.meteorStopRun', 'run'));
+    context.subscriptions.push(MeteorCommandHelper.stopRunTestCommand('meteorhelper.meteorStopTest', 'test'));
 
-    context.subscriptions.push(MeteorCommandHelper.registerCommand('extension.meteorReset', 'reset'));
-    context.subscriptions.push(MeteorCommandHelper.registerCommand('extension.meteorList', 'list'));
+    context.subscriptions.push(MeteorCommandHelper.registerCommand('meteorhelper.meteorReset', 'reset'));
+    context.subscriptions.push(MeteorCommandHelper.registerCommand('meteorhelper.meteorList', 'list'));
 
-    context.subscriptions.push(MeteorCommandHelper.registerCommandWithUserInput('extension.meteorAdd', false, 'add'));
-    context.subscriptions.push(MeteorCommandHelper.registerCommandWithUserInput('extension.meteorRemove', false, 'remove'));
-    context.subscriptions.push(MeteorCommandHelper.registerCommandWithUserInput('extension.meteorUpdate', true, 'update'));
-    context.subscriptions.push(MeteorCommandHelper.registerCommandWithUserInput('extension.meteorNpm', false, 'npm'));
+    context.subscriptions.push(MeteorCommandHelper.registerCommandWithUserInput('meteorhelper.meteorAdd', false, 'add'));
+    context.subscriptions.push(MeteorCommandHelper.registerCommandWithUserInput('meteorhelper.meteorRemove', false, 'remove'));
+    context.subscriptions.push(MeteorCommandHelper.registerCommandWithUserInput('meteorhelper.meteorUpdate', true, 'update'));
+    context.subscriptions.push(MeteorCommandHelper.registerCommandWithUserInput('meteorhelper.meteorNpm', false, 'npm'));
 
 }
 
