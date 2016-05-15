@@ -6,7 +6,6 @@ export function activate(context: vscode.ExtensionContext) {
 
     console.log('MeteorHelper activated..');
 
-    ConfigHelper.setConfiguration();
     MeteorCommandHelper.init();
 
     context.subscriptions.push(vscode.workspace.onDidChangeConfiguration(() => {
