@@ -3,7 +3,6 @@ import { MeteorCommandHelper } from './mh/MeteorCommandHelper';
 import { ConfigHelper } from './mh/ConfigHelper';
 
 export function activate(context: vscode.ExtensionContext) {
-
     console.log('MeteorHelper activated..');
 
     MeteorCommandHelper.init();
@@ -29,11 +28,17 @@ export function activate(context: vscode.ExtensionContext) {
     context.subscriptions.push(MeteorCommandHelper.registerCommandWithUserInput('meteorhelper.meteorRemove', false, 'remove'));
     context.subscriptions.push(MeteorCommandHelper.registerCommandWithUserInput('meteorhelper.meteorUpdate', true, 'update'));
     context.subscriptions.push(MeteorCommandHelper.registerCommandWithUserInput('meteorhelper.meteorNpm', false, 'npm'));
-
 }
 
-export function deactivate(): void {
-    console.log('MeteorHelper deactivated..');
+export function deactivate() {
+    const runningCommands = MeteorCommandHelper.getCommandsFromExecutionList();
+    
+    runningCommands.forEach(command => {
+        console.log('MeteorHelper: killing PID ', command.meteorCommand.pid);
+        command.meteorCommand.kill();
+    });
+
+    console.log('MeteorHelper deactivated!');
 }
 
 
