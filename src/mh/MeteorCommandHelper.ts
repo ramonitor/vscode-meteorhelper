@@ -218,7 +218,6 @@ export class MeteorCommandHelper {
     }
 
     public static stopRunTestCommand(commandName: string, ...args: string[]): vscode.Disposable {
-
         let commandType: CommandType;
 
         switch (args[0]) {
@@ -234,7 +233,6 @@ export class MeteorCommandHelper {
         }
 
         return vscode.commands.registerCommand(commandName, () => {
-
             this.validateStopCommand();
 
             let meteorCommand: MeteorCommand = this.commandExecutionList.find(c => c.type == commandType);
@@ -242,7 +240,6 @@ export class MeteorCommandHelper {
             if (meteorCommand) {
                 meteorCommand.kill();
             }
-
         });
     }
 
@@ -254,7 +251,6 @@ export class MeteorCommandHelper {
     }
 
     private static execMeteorCommand(args: string[], force = false, visible = false, type: CommandType): void {
-
         let outputChannel: OutputChannelWrapper;
         let command: MeteorCommand;
         
@@ -316,7 +312,6 @@ export class MeteorCommandHelper {
     }
 
     private static statusBarStop(commandType: CommandType): void {
-
         switch (commandType) {
             case CommandType.Run:
             case CommandType.Debug:
@@ -332,7 +327,6 @@ export class MeteorCommandHelper {
     }
 
     private static statusBarStart(statusBar: StatusBarHelper, commandType: CommandType, command: MeteorCommand) {
-
         let tooltip = `meteor ${command.args.join(' ')} (PID: ${command.pid})`;
 
         switch (commandType) {
@@ -436,7 +430,7 @@ export class MeteorCommandHelper {
         });
     }
 
-    private static getCommandsFromExecutionList(): RunningMeteorCommand[] {
+    public static getCommandsFromExecutionList(): RunningMeteorCommand[] {
 
         const items: RunningMeteorCommand[] = this.commandExecutionList.map((command) => {
             return {

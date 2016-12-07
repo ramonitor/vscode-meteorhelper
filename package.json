@@ -2,7 +2,7 @@
     "name": "meteorhelper",
     "displayName": "MeteorHelper",
     "description": "Meteor CLI integration into VSCode",
-    "version": "0.1.1",
+    "version": "0.1.2",
     "publisher": "ramonitor",
     "license": "MIT",
     "engines": {
@@ -12,6 +12,7 @@
     "categories": [
         "Other"
     ],
+    "homepage": "https://github.com/ramonitor/vscode-meteorhelper/blob/master/README.md",
     "repository": {
         "type": "git",
         "url": "https://github.com/ramonitor/vscode-meteorhelper.git"
