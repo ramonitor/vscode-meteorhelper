@@ -1,6 +1,9 @@
 # CHANGELOG
 ## MeteorHelper - Meteor CLI integration into VSCode
 
+## 0.1.3
+* Fixed package.json structure of the extension causing it to fail (Issue [#2](https://github.com/ramonitor/vscode-meteorhelper/issues/2))
+
 ### 0.1.2
 * Running Meteor processes are killed when VSCode is being shutdown (Issue [#1](https://github.com/ramonitor/vscode-meteorhelper/issues/1))
 
