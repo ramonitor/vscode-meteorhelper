@@ -84,7 +84,7 @@ class MeteorCommand {
             //     vscode.window.showErrorMessage(`MeteorHelper: ${cwd} is not a Meteor project directory. Check your workspace configuration.`);
             //     return;
             // }
-            
+
             let output = '';
 
             this.outputChannel.append(this, '--------------------------------------------------------------------------------------------------\n');
@@ -104,7 +104,7 @@ class MeteorCommand {
                 this.outputChannel.append(this, data.toString());
             });
 
-            this.process.on('error', error => {
+            this.process.on('error', (error: any) => {
                 if (error.code === 'ENOENT') {
                     vscode.window.showInformationMessage('MeteorHelper: error ' + error.code);
                 }
@@ -169,7 +169,7 @@ export class MeteorCommandHelper {
 
     public static init() {
         ConfigHelper.setConfiguration();
-        
+
         const extensionVersion = ConfigHelper.getExtensionVersion();
         this.statusBar.init(`MH: Version ${extensionVersion} loaded`);
     }
@@ -243,6 +243,19 @@ export class MeteorCommandHelper {
         });
     }
 
+    public static getCommandsFromExecutionList(): RunningMeteorCommand[] {
+        const items: RunningMeteorCommand[] = this.commandExecutionList.map((command) => {
+            return {
+                label: `meteor ${command.args[0]}`,
+                description: command.args.slice(1).join(' '),
+                detail: `meteor process id: ${command.pid}`,
+                meteorCommand: command
+            }
+        });
+
+        return items;
+    }
+
     private static validateStopCommand(): void {
         if (this.commandExecutionList.length == 0) {
             vscode.window.showInformationMessage('MeteorHelper: No running commands, nothing to stop..');
@@ -253,18 +266,18 @@ export class MeteorCommandHelper {
     private static execMeteorCommand(args: string[], force = false, visible = false, type: CommandType): void {
         let outputChannel: OutputChannelWrapper;
         let command: MeteorCommand;
-        
+
         command = this.commandExecutionList.find((runningCommand: MeteorCommand) => runningCommand.type == type);
 
         if (!command) {
-            
+
             const meteorAppPath = ConfigHelper.getMeteorAppPath();
 
             if (!ConfigHelper.isMeteorProjectFolder(meteorAppPath)) {
                 vscode.window.showErrorMessage(`MeteorHelper: ${meteorAppPath} is not a Meteor project directory. Check your workspace configuration.`);
                 return;
             }
-            
+
             switch (type) {
                 case CommandType.Debug:
                 case CommandType.Run:
@@ -428,20 +441,6 @@ export class MeteorCommandHelper {
                 resolve(commandArgs);
             });
         });
-    }
-
-    public static getCommandsFromExecutionList(): RunningMeteorCommand[] {
-
-        const items: RunningMeteorCommand[] = this.commandExecutionList.map((command) => {
-            return {
-                label: `meteor ${command.args[0]}`,
-                description: command.args.slice(1).join(' '),
-                detail: `meteor process id: ${command.pid}`,
-                meteorCommand: command
-            }
-        });
-
-        return items;
     }
 
     private static removeCommandFromExecutionList(command: MeteorCommand): void {
