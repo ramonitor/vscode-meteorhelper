@@ -46,6 +46,22 @@ The configuration properties stated below can be added to the VSCode configurati
 
 To enable testing (meteor test), Meteor 1.3 or above is required. Also, there needs to be a test driver package added into the project. Next, specify the driver package to be used in the driverPackage property under the meteorhelper.testConfiguration workspace section.
 
+In MeteorHelper 0.1.4 the ability is added to specify additional configuration for testing via environment variables. You can use the MeteorHelper workspace configuration to specify these key/value pairs by adding them to the envArgs section under the meteorhelper.testConfiguration section. 
+
+For example, to add 'TEST_WATCH=1' to 'meteor test' (i.e. you want to execute ````TEST_WATCH=1 meteor test --driver-package meteortesting:mocha'````) as mentioned in the [meteor-mocha](https://github.com/meteortesting/meteor-mocha) package, you use the envArgs property like this: 
+
+````
+"meteorhelper.testConfiguration": {
+    "driverPackage": "meteortesting:mocha",
+    "debugPort": "3001",
+    "envArgs": [
+        {
+            "argName": "TEST_WATCH", "argValue": "1"
+        }
+    ]
+}
+````
+
 ### For more information
 * [Meteor Docs](http://docs.meteor.com/#/full/meteorhelp)
 * [Meteor](https://www.meteor.com)
