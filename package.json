@@ -2,7 +2,7 @@
     "name": "meteorhelper",
     "displayName": "MeteorHelper",
     "description": "Meteor CLI integration into VSCode",
-    "version": "0.1.3",
+    "version": "0.1.4",
     "publisher": "ramonitor",
     "license": "MIT",
     "engines": {
@@ -131,6 +131,29 @@
                             "type": "string",
                             "description": "driver package for testing",
                             "default": ""
+                        },
+                        "extraPackages": {
+                            "type": "array",
+                            "description": "aditional packages for testing (comma seperated)",
+                            "items": {
+                                "type": "string"
+                            }
+                        },
+                        "envArgs": {
+                            "type": "array",
+                            "items": {
+                                "type": "object",
+                                "properties": {
+                                    "argName": {
+                                        "type": "string",
+                                        "description": "Name of inner object"
+                                    },
+                                    "argValue": {
+                                        "type": "string",
+                                        "description": "Size of inner object"
+                                    }
+                                }
+                            }
                         },
                         "port": {
                             "type": "string",

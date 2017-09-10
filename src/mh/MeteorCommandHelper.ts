@@ -49,6 +49,7 @@ interface IMeteorCommandArgs {
     statusBar: StatusBarHelper;
     type: CommandType;
     statusBarCallback: IStatusBarStart;
+    envArgs?: Object;
 }
 
 interface IStatusBarStart {
@@ -63,6 +64,7 @@ class MeteorCommand {
     private statusBar: StatusBarHelper;
     private commandType: CommandType;
     private statusBarStart: IStatusBarStart;
+    private environmentArgs: Object;
 
     constructor(cmdArgs: IMeteorCommandArgs) {
         this.arguments = cmdArgs.arguments;
@@ -70,6 +72,7 @@ class MeteorCommand {
         this.statusBar = cmdArgs.statusBar;
         this.commandType = cmdArgs.type;
         this.statusBarStart = cmdArgs.statusBarCallback;
+        this.environmentArgs = cmdArgs.envArgs;
     }
 
     public execute(): Thenable<string> {
@@ -80,18 +83,15 @@ class MeteorCommand {
             const command = 'meteor ' + this.arguments.join(' ');
             const cwd = ConfigHelper.getMeteorAppPath();
 
-            // if (!ConfigHelper.isMeteorProjectFolder(cwd)) {
-            //     vscode.window.showErrorMessage(`MeteorHelper: ${cwd} is not a Meteor project directory. Check your workspace configuration.`);
-            //     return;
-            // }
-
             let output = '';
 
+            const envArgsString = this.environmentArgs ? ConfigHelper.getEnvironmentArgsConfigString(this.environmentArgs) : '';
             this.outputChannel.append(this, '--------------------------------------------------------------------------------------------------\n');
-            this.outputChannel.append(this, `MeteorHelper: executing '${command}'..\n`);
+            this.outputChannel.append(this, `MeteorHelper: executing '${envArgsString}${command}'..\n`);
             this.outputChannel.append(this, '--------------------------------------------------------------------------------------------------\n');
-
-            this.process = spawn(meteorPath, this.arguments, { cwd });
+            
+            const processEnv = Object.assign({}, process.env, this.environmentArgs);
+            this.process = spawn(meteorPath, this.arguments, { cwd, env: processEnv });
 
             this.statusBarStart(this.statusBar, this.commandType, this);
 
@@ -115,7 +115,7 @@ class MeteorCommand {
                 this.process = null;
                 const endTime = Date.now();
 
-                this.outputChannel.append(this, `\n"${command}" completed with code ${code}`);
+                this.outputChannel.append(this, `\n"${envArgsString}${command}" completed with code ${code}`);
                 this.outputChannel.append(this, `\nIt took approximately ${(endTime - startTime) / 1000} seconds`);
 
                 if (code === 0 || this.interrupted) {
@@ -263,14 +263,13 @@ export class MeteorCommandHelper {
         }
     }
 
-    private static execMeteorCommand(args: string[], force = false, visible = false, type: CommandType): void {
+    private static execMeteorCommand(args: string[], force = false, visible = false, type: CommandType, envArgs?: Object): void {
         let outputChannel: OutputChannelWrapper;
         let command: MeteorCommand;
 
         command = this.commandExecutionList.find((runningCommand: MeteorCommand) => runningCommand.type == type);
 
         if (!command) {
-
             const meteorAppPath = ConfigHelper.getMeteorAppPath();
 
             if (!ConfigHelper.isMeteorProjectFolder(meteorAppPath)) {
@@ -296,7 +295,8 @@ export class MeteorCommandHelper {
                 outputChannel,
                 statusBar: this.statusBar,
                 type,
-                statusBarCallback: this.statusBarStart
+                statusBarCallback: this.statusBarStart,
+                envArgs
             });
 
             this.commandExecutionList.push(command);
@@ -390,6 +390,10 @@ export class MeteorCommandHelper {
             commandArgs.push('--driver-package', testConfig.driverPackage);
         }
 
+        if (testConfig.extraPackages) {
+            commandArgs.push('--extra-packages', testConfig.extraPackages.join(', '));
+        }
+
         if (testConfig.settings) {
             if (!shell.test('-f', testConfig.settings)) {
                 vscode.window.showErrorMessage(`MeteorHelper: Settings file ${testConfig.settings} specified in testing configuration not found!`, 'Open Workspace Settings')
@@ -406,7 +410,16 @@ export class MeteorCommandHelper {
 
         commandArgs = args.concat(commandArgs);
 
-        this.execMeteorCommand(commandArgs, true, true, CommandType.Test);
+        const envArgs = ConfigHelper.getEnvironmentArgsConfig(testConfig.envArgs);
+        
+        // if (testConfig.testEnvArgs) {
+        //     const { testEnvArgs } = testConfig;
+        //     const envArgs = ConfigHelper.getEnvironmentArgsConfig(testEnvArgs);
+        //     // const envArgs = testEnvArgs.reduce(
+        //     //     (obj, item) => Object.assign(obj, {[item.argName]: item.argValue}), {});
+        // }
+
+        this.execMeteorCommand(commandArgs, true, true, CommandType.Test, envArgs);
     }
 
     private static meteorRunDebug(commandName: string, args: string[]): void {

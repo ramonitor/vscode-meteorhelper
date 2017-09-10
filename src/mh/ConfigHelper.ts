@@ -6,11 +6,17 @@ const shell = require('shelljs');
 interface ITestConfiguration {
     debugPort: string;
     driverPackage: string;
+    extraPackages: Array<string>;
     port: string;
     verbose: boolean;
     settings: string;
+    envArgs: [IKeyValueConfigItem]
 }
 
+interface IKeyValueConfigItem {
+    argName: string;
+    argValue: string;
+}
 
 export class ConfigHelper {
     private static CONFIG_SECTION = 'meteorhelper';
@@ -132,6 +138,18 @@ export class ConfigHelper {
 
         const releaseVersion: string = fs.readFileSync(releasefile, 'utf8').split('@')[1].substr(0,3);
         return parseFloat(releaseVersion);
+    }
+
+    public static getEnvironmentArgsConfig(keyValueItems: IKeyValueConfigItem[]): Object {
+        const envArgsObject = keyValueItems.reduce(
+            (obj, item) => Object.assign(obj, {[item.argName.toUpperCase()]: item.argValue}), {});
+
+        return envArgsObject;
+    }
+
+    public static getEnvironmentArgsConfigString(keyValueObject: Object): string {
+        const envArgsString = Object.keys(keyValueObject).map(kv => [kv, keyValueObject[kv]].join('=')).join(' ') + ' ';
+        return envArgsString;
     }
 
 }
