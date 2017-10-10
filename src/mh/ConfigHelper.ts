@@ -100,8 +100,8 @@ export class ConfigHelper {
         return this.config.get('meteorPort', '');
     }
 
-    public static getMongoPath(): string {
-        return this.config.get('mongoPath', '');
+    public static getMongoUrl(): string {
+        return this.config.get('mongoUrl', '');
     }
 
     public static getMeteorAppPath(): string {
