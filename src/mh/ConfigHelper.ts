@@ -100,6 +100,10 @@ export class ConfigHelper {
         return this.config.get('meteorPort', '');
     }
 
+    public static getMongoPath(): string {
+        return this.config.get('mongoPath', '');
+    }
+
     public static getMeteorAppPath(): string {
         const projectPath = vscode.workspace.rootPath;
         const relativeProjectPath = this.config.get('relativeProjectPath', '');
