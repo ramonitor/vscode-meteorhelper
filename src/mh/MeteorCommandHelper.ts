@@ -429,6 +429,11 @@ export class MeteorCommandHelper {
         if (settings) {
             commandArgs.push('--settings', settings);
         }
+        
+        const envArgs = ConfigHelper.getEnvironmentArgsConfig([{
+            argName: "MONGO_URL",
+            argValue: ConfigHelper.getMongoUrl()            
+        }]);
 
         const port = ConfigHelper.getMeteorPort();
         if (port) {
@@ -436,7 +441,7 @@ export class MeteorCommandHelper {
         }
 
         commandArgs = args.concat(commandArgs);
-        this.execMeteorCommand(commandArgs, true, true, CommandType.Run);
+        this.execMeteorCommand(commandArgs, true, true, CommandType.Run, envArgs);
     }
 
     private static collectUserInput(commandName: string, inputIsOptional: boolean, args: string[]): Thenable<string[]> {
