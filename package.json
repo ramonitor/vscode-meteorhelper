@@ -115,9 +115,9 @@
                     "default": "3000",
                     "description": "Specifies the port Meteor will be using."
                 },
-                "meteorhelper.mongoPath": {
+                "meteorhelper.mongoUrl": {
                     "type": "string",
-                    "description": "Specifies the port to MongoDB"
+                    "description": "Specifies the URL to MongoDB"
                 },
                 "meteorhelper.meteorSettings": {
                     "type": "string",
