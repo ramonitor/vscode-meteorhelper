@@ -86,9 +86,7 @@ class MeteorCommand {
             let output = '';
 
             const envArgsString = this.environmentArgs ? ConfigHelper.getEnvironmentArgsConfigString(this.environmentArgs) : '';
-            this.outputChannel.append(this, '--------------------------------------------------------------------------------------------------\n');
             this.outputChannel.append(this, `MeteorHelper: executing '${envArgsString}${command}'..\n`);
-            this.outputChannel.append(this, '--------------------------------------------------------------------------------------------------\n');
             
             const processEnv = Object.assign({}, process.env, this.environmentArgs);
             this.process = spawn(meteorPath, this.arguments, { cwd, env: processEnv });
