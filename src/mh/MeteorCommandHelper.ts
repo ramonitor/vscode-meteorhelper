@@ -127,7 +127,7 @@ class MeteorCommand {
                     }
                     reject(output);
                 }
-                this.outputChannel.append(this, '\n');
+                // this.outputChannel.append(this, '\n');
             });
         });
     }
