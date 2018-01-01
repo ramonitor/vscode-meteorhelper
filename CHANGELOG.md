@@ -1,6 +1,10 @@
 # CHANGELOG
 ## MeteorHelper - Meteor CLI integration into VSCode
 
+## 0.1.5
+* Added the envArgs configuration options for Meteor Run and Debug (as an alternative and more generic solution to specify a MONGO_URL as mentioned in PR [#8](https://github.com/ramonitor/vscode-meteorhelper/pull/8), thanks [@ntziolis](https://github.com/ntziolis))
+* Removed dashed lines from MeteorHelper output to prevent issues with smaller VSCode output windows (Issue [#10](https://github.com/ramonitor/vscode-meteorhelper/issues/10), thanks [@laurentenhoor](https://github.com/laurentenhoor))
+
 ## 0.1.4
 * Added the ability to specify additional testing configuration via the envArgs property of the workspace configuration (Issue [#6](https://github.com/ramonitor/vscode-meteorhelper/issues/6) and Issue [#7](https://github.com/ramonitor/vscode-meteorhelper/issues/7))
 * Added support for the 'meteor test' --extra-packages parameter 
